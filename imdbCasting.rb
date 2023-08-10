@@ -69,6 +69,21 @@ class IMDBKnowledgeBase
     threads.each(&:join)
   end
 
+  def movies_by_actor(actor_name, m)
+    actor_movies = []
+
+    @movies.each do |movie|
+      # if movie.cast.any? { |cast_member| cast_member.downcase.include?(actor_name.downcase) }
+      if movie.cast.any? { |cast_member| cast_member.join(', ').downcase.include?(actor_name.downcase) }
+  
+      actor_movies << movie
+        break if actor_movies.size >= m
+      end
+    end
+
+    actor_movies
+  end
+
   def display_movies
     @movies.each_with_index do |movie, index|
       puts "#{index + 1}. #{movie}"
@@ -82,3 +97,16 @@ n = gets.chomp.to_i
 knowledge_base = IMDBKnowledgeBase.new(n)
 knowledge_base.fetch_top_movies
 knowledge_base.display_movies
+
+print "Enter an actor's name: "
+actor_name = gets.chomp
+
+print "Enter the number of movies to fetch for the actor: "
+m = gets.chomp.to_i
+
+actor_movies = knowledge_base.movies_by_actor(actor_name, m)
+
+puts "Top #{m} movies for actor #{actor_name}:"
+actor_movies.each do |movie|
+  puts movie
+end
