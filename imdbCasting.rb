@@ -2,18 +2,18 @@ require 'nokogiri'
 require 'open-uri'
 require 'net/http'
 
-class Movie
-  attr_accessor :title, :cast
+# class Movie
+#   attr_accessor :title, :cast
 
-  def initialize(title, cast)
-    @title = title
-    @cast = cast
-  end
+#   def initialize(title, cast)
+#     @title = title
+#     @cast = cast
+#   end
 
-  def to_s
-    "#{title} - Cast: #{cast.join(', ')}"
-  end
-end
+#   def to_s
+#     "#{title} - Cast: #{cast.join(', ')}"
+#   end
+# end
 
 class IMDBKnowledgeBase
   def initialize(limit)
